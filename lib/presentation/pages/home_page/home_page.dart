@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:football_together/design/colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:football_together/presentation/pages/game_details/gamelist_provider.dart';
+import 'package:football_together/providers/gamelist_provider.dart';
 import '../../../design/icons.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../providers/location_provider.dart';
 import 'game_card.dart';
 import 'modal_bottomsheet.dart';
 
@@ -35,6 +36,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final locationState = ref.watch(locationProvider);
     final gameListState = ref.watch(gameListProvider);
 
     return Scaffold(

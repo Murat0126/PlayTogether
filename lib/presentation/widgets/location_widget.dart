@@ -7,52 +7,25 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  String _locationMessage = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
-  }
+  Position? _currentPosition;
 
   Future<void> _getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Проверка, включены ли сервисы местоположения
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      setState(() {
-        _locationMessage = "Location services are disabled.";
-      });
-      return;
-    }
-
     // Проверка разрешений
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        setState(() {
-          _locationMessage = "Location permissions are denied.";
-        });
-        return;
-      }
-    }
+    LocationPermission permission = await Geolocator.requestPermission();
 
-    if (permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      // Получение текущих координат
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
       setState(() {
-        _locationMessage = "Location permissions are permanently denied.";
+        _currentPosition = position;
       });
-      return;
+    } else {
+      // Обработка отсутствия разрешений
+      print("Location permission denied");
     }
-
-    // Получение текущего местоположения
-    Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _locationMessage =
-          "Latitude: ${position.latitude}, Longitude: ${position.longitude}";
-    });
   }
 
   @override
@@ -62,7 +35,12 @@ class _LocationScreenState extends State<LocationScreen> {
         title: Text('Location Example'),
       ),
       body: Center(
-        child: Text(_locationMessage),
+        child: _currentPosition == null
+            ? CircularProgressIndicator()
+            : Text(
+          'Latitude: ${_currentPosition!.latitude}, Longitude: ${_currentPosition!.longitude}',
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }

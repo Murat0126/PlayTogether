@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_together/models/game_list/gamelist.dart';
 
-import '../../../repositories/gamelist_repo.dart';
+import '../repositories/gamelist_repo.dart';
 
 final gameListProvider =
     StateNotifierProvider<GameListNotifier, GameListState>((ref) {
