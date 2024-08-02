@@ -5,10 +5,9 @@ import '../../../../design/colors.dart';
 import '../../../../design/icons.dart';
 
 class HeadingCard extends StatelessWidget {
-  const HeadingCard({super.key, this.title, this.startDate, this.gameState});
+  const HeadingCard({super.key, this.gameState});
+
   final GameDetails? gameState;
-  final String? title;
-  final DateTime? startDate;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +17,6 @@ class HeadingCard extends StatelessWidget {
     String time = '${now?.hour}:${now?.minute}';
     String dayOfWeek = getDayOfWeek(now!.weekday);
     const double gameDuraation = 2.5;
-    const int ageStart = 19;
-    const int ageEnd = 45;
-    const String typeOfGame = "Дружеский";
-    const String gameOrganizer = "ataialanov";
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -57,8 +52,8 @@ class HeadingCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                   Text(
-                     "${gameState!.title}",
+                  Text(
+                    "${gameState!.title}",
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                   ),
                   Row(
@@ -84,8 +79,9 @@ class HeadingCard extends StatelessWidget {
                     ],
                   ),
                   _timeEndPrice(gameDuraation, gameState!.contribution),
-                  // _ageCategory(ageStart, ageEnd,),
-                  _avatarAndCall(gameOrganizer),
+                  _ageCategory(gameState!.ageFrom, gameState!.ageTo,
+                      gameState!.gameTypeName),
+                  _avatarAndCall(gameState!.organizer!.name),
                 ],
               ),
             ),
@@ -109,7 +105,7 @@ class HeadingCard extends StatelessWidget {
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
                 ),
                 Text(
-                  '$cash',
+                  '$cash сом',
                   style: const TextStyle(
                       fontWeight: FontWeight.w500, fontSize: 15),
                 )
@@ -124,7 +120,8 @@ class HeadingCard extends StatelessWidget {
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
               ),
               Text(
-                '$gameDuration часа',
+                '${gameState!.booking!.duration!.hours!.toInt()}.'
+                    '${gameState!.booking!.duration!.minutes!.toInt()} часа',
                 style:
                     const TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
               )

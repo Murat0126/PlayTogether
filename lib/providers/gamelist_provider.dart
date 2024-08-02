@@ -72,5 +72,4 @@ class GameListNotifier extends StateNotifier<GameListState> {
     }
   });
 
-
 }

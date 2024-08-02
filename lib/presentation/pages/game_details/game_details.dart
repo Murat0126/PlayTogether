@@ -34,9 +34,9 @@ class GamePage extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HeadingCard(gameState: game, title: game!.title,   ),
-            GameLocationWidget(),
-            DescriptionWidget(),
+            HeadingCard(gameState: game),
+            GameLocationWidget(gameState: game,),
+            DescriptionWidget(gameState: game,),
           ],
         ),
       )

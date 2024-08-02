@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class DescriptionWidget extends StatelessWidget {
-  const DescriptionWidget({super.key});
+import '../../../models/details/details.dart';
 
-  final String description =
-      "Lorem Ipsum is simply dummy text of the printing and "
-      "typesetting industry. Lorem Ipsum has been the industry's standard dummy "
-      "text ever since the 1500s, when an unknown printer took a galley of type "
-      "and scrambled it to make a type specimen book. It has survived not only "
-      "five centuries, but also the leap into electronic typesetting, remaining "
-      "essentially unchanged";
+class DescriptionWidget extends StatefulWidget {
+  const DescriptionWidget({super.key, this.gameState});
+
+  final GameDetails? gameState;
+
+  @override
+  State<DescriptionWidget> createState() => _DescriptionWidgetState();
+}
+
+class _DescriptionWidgetState extends State<DescriptionWidget> {
+  late String firstHalf;
+  late String secondHalf;
+
+  bool flag = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.gameState!.description!.length > 50) {
+      firstHalf = widget.gameState!.description!.substring(0, 50);
+      secondHalf = widget.gameState!.description!
+          .substring(50, widget.gameState!.description!.length);
+    } else {
+      firstHalf = widget.gameState!.description!;
+      secondHalf = "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
       child: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +45,34 @@ class DescriptionWidget extends StatelessWidget {
               "Описание",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            Text(description),
+            secondHalf.isEmpty
+                ? new Text(firstHalf)
+                : new Column(
+                    children: <Widget>[
+                      new Text(flag
+                          ? (firstHalf + "...")
+                          : (firstHalf + secondHalf)),
+                      new InkWell(
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            new Text(
+                              flag ? "...покозать больше" : "покозать меньше",
+                              style: new TextStyle(color: Colors.blue),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {
+                            flag = !flag;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+            const SizedBox(
+              height: 20,
+            ),
             ElevatedButton(
               onPressed: () {
                 context.go('home');

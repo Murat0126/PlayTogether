@@ -12,7 +12,7 @@ class GameListRepository {
     print(path);
     return Uri.https(Env.host, path, params);
   }
-  Future<List<Game>> fetchGameLists(int page) async {
+  Future<List<Game>> fetchGameLists(int page,) async {
 
     final patch = buildUrl('/football_fields_api/games/').toString();
     final response = await _dio.get(patch, queryParameters: {'page': page});

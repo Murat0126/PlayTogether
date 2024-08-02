@@ -20,20 +20,22 @@ class _AllAndNearSortWidgetState extends State<AllAndNearSortWidget> {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
             onPressed: (){
-          }, child: const Text("Все"),),
+          }, child: const Text("Все", style: TextStyle(color: Colors.black),),),
           const SizedBox(width:20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
             onPressed: (){
-          }, child: const Text("Рядом"),),
+          }, child: const Text("Рядом", style: TextStyle(color: Colors.black),),),
         ],
       ),
     );

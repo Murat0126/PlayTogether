@@ -26,23 +26,6 @@ class Game with _$Game {
   }
 }
 
-// @freezed
-// class GamelistResult with _$Gamelist {
-//   const factory GamelistResult({
-//     @JsonKey(name: "id") int? id,
-//     @JsonKey(name: "contribution") double? contribution,
-//     @JsonKey(name: "image") String? backgroundImage,
-//     @JsonKey(name: "title") String? title,
-//     @JsonKey(name: "start_date") DateTime? startDate,
-//     @JsonKey(name: "duration") GameDuration? gameDuration,
-//     @JsonKey(name: "existing_player_count") int? existingPlayerCount,
-//     @JsonKey(name: "organizer") Organizer? gameOrganizer,
-//   }) = _GamelistResult;
-//
-//   factory GamelistResult.fromJson(Map<String, dynamic> json) =>
-//       _$GamelistResultFromJson(json);
-// }
-
 @freezed
 class GameDuration with _$GameDuration {
   const factory GameDuration({

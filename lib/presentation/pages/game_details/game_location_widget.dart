@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:football_together/design/colors.dart';
 
-class GameLocationWidget extends StatelessWidget {
-  const GameLocationWidget({super.key});
+import '../../../models/details/details.dart';
 
-  final String locationText = "Геологический переулок, 3/1";
+class GameLocationWidget extends StatelessWidget {
+   GameLocationWidget({super.key, this.gameState});
+
+  final GameDetails? gameState;
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class GameLocationWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        locationText,
+                        gameState!.booking!.address ?? "Аддрес не указан",
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),

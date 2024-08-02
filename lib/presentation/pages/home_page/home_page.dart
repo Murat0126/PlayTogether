@@ -6,6 +6,7 @@ import '../../../design/icons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../providers/location_provider.dart';
+import 'all_and_near_buttons.dart';
 import 'game_card.dart';
 import 'modal_bottomsheet.dart';
 
@@ -82,6 +83,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ),
+            AllAndNearSortWidget(),
             Wrap(
               runSpacing: 8,
               spacing: 8,
