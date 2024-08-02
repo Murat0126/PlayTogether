@@ -23,7 +23,7 @@ mixin _$GameDetails {
   @JsonKey(name: "id")
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: "contribution")
-  double? get contribution => throw _privateConstructorUsedError;
+  String? get contribution => throw _privateConstructorUsedError;
   @JsonKey(name: "max_player")
   double? get maxPlayer => throw _privateConstructorUsedError;
   @JsonKey(name: "title")
@@ -36,6 +36,8 @@ mixin _$GameDetails {
   int? get ageFrom => throw _privateConstructorUsedError;
   @JsonKey(name: "age_to")
   int? get ageTo => throw _privateConstructorUsedError;
+  @JsonKey(name: "game_type_name")
+  String? get gameTypeName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,13 +53,14 @@ abstract class $GameDetailsCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
-      @JsonKey(name: "contribution") double? contribution,
+      @JsonKey(name: "contribution") String? contribution,
       @JsonKey(name: "max_player") double? maxPlayer,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "booking") Booking? booking,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "age_from") int? ageFrom,
-      @JsonKey(name: "age_to") int? ageTo});
+      @JsonKey(name: "age_to") int? ageTo,
+      @JsonKey(name: "game_type_name") String? gameTypeName});
 
   $BookingCopyWith<$Res>? get booking;
 }
@@ -83,6 +86,7 @@ class _$GameDetailsCopyWithImpl<$Res, $Val extends GameDetails>
     Object? description = freezed,
     Object? ageFrom = freezed,
     Object? ageTo = freezed,
+    Object? gameTypeName = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -92,7 +96,7 @@ class _$GameDetailsCopyWithImpl<$Res, $Val extends GameDetails>
       contribution: freezed == contribution
           ? _value.contribution
           : contribution // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       maxPlayer: freezed == maxPlayer
           ? _value.maxPlayer
           : maxPlayer // ignore: cast_nullable_to_non_nullable
@@ -117,6 +121,10 @@ class _$GameDetailsCopyWithImpl<$Res, $Val extends GameDetails>
           ? _value.ageTo
           : ageTo // ignore: cast_nullable_to_non_nullable
               as int?,
+      gameTypeName: freezed == gameTypeName
+          ? _value.gameTypeName
+          : gameTypeName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -143,13 +151,14 @@ abstract class _$$GameDetailsImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: "id") int? id,
-      @JsonKey(name: "contribution") double? contribution,
+      @JsonKey(name: "contribution") String? contribution,
       @JsonKey(name: "max_player") double? maxPlayer,
       @JsonKey(name: "title") String? title,
       @JsonKey(name: "booking") Booking? booking,
       @JsonKey(name: "description") String? description,
       @JsonKey(name: "age_from") int? ageFrom,
-      @JsonKey(name: "age_to") int? ageTo});
+      @JsonKey(name: "age_to") int? ageTo,
+      @JsonKey(name: "game_type_name") String? gameTypeName});
 
   @override
   $BookingCopyWith<$Res>? get booking;
@@ -174,6 +183,7 @@ class __$$GameDetailsImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? ageFrom = freezed,
     Object? ageTo = freezed,
+    Object? gameTypeName = freezed,
   }) {
     return _then(_$GameDetailsImpl(
       id: freezed == id
@@ -183,7 +193,7 @@ class __$$GameDetailsImplCopyWithImpl<$Res>
       contribution: freezed == contribution
           ? _value.contribution
           : contribution // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       maxPlayer: freezed == maxPlayer
           ? _value.maxPlayer
           : maxPlayer // ignore: cast_nullable_to_non_nullable
@@ -208,6 +218,10 @@ class __$$GameDetailsImplCopyWithImpl<$Res>
           ? _value.ageTo
           : ageTo // ignore: cast_nullable_to_non_nullable
               as int?,
+      gameTypeName: freezed == gameTypeName
+          ? _value.gameTypeName
+          : gameTypeName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -223,7 +237,8 @@ class _$GameDetailsImpl implements _GameDetails {
       @JsonKey(name: "booking") this.booking,
       @JsonKey(name: "description") this.description,
       @JsonKey(name: "age_from") this.ageFrom,
-      @JsonKey(name: "age_to") this.ageTo});
+      @JsonKey(name: "age_to") this.ageTo,
+      @JsonKey(name: "game_type_name") this.gameTypeName});
 
   factory _$GameDetailsImpl.fromJson(Map<String, dynamic> json) =>
       _$$GameDetailsImplFromJson(json);
@@ -233,7 +248,7 @@ class _$GameDetailsImpl implements _GameDetails {
   final int? id;
   @override
   @JsonKey(name: "contribution")
-  final double? contribution;
+  final String? contribution;
   @override
   @JsonKey(name: "max_player")
   final double? maxPlayer;
@@ -252,10 +267,13 @@ class _$GameDetailsImpl implements _GameDetails {
   @override
   @JsonKey(name: "age_to")
   final int? ageTo;
+  @override
+  @JsonKey(name: "game_type_name")
+  final String? gameTypeName;
 
   @override
   String toString() {
-    return 'GameDetails(id: $id, contribution: $contribution, maxPlayer: $maxPlayer, title: $title, booking: $booking, description: $description, ageFrom: $ageFrom, ageTo: $ageTo)';
+    return 'GameDetails(id: $id, contribution: $contribution, maxPlayer: $maxPlayer, title: $title, booking: $booking, description: $description, ageFrom: $ageFrom, ageTo: $ageTo, gameTypeName: $gameTypeName)';
   }
 
   @override
@@ -273,13 +291,15 @@ class _$GameDetailsImpl implements _GameDetails {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.ageFrom, ageFrom) || other.ageFrom == ageFrom) &&
-            (identical(other.ageTo, ageTo) || other.ageTo == ageTo));
+            (identical(other.ageTo, ageTo) || other.ageTo == ageTo) &&
+            (identical(other.gameTypeName, gameTypeName) ||
+                other.gameTypeName == gameTypeName));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, contribution, maxPlayer,
-      title, booking, description, ageFrom, ageTo);
+      title, booking, description, ageFrom, ageTo, gameTypeName);
 
   @JsonKey(ignore: true)
   @override
@@ -297,14 +317,16 @@ class _$GameDetailsImpl implements _GameDetails {
 
 abstract class _GameDetails implements GameDetails {
   const factory _GameDetails(
-      {@JsonKey(name: "id") final int? id,
-      @JsonKey(name: "contribution") final double? contribution,
-      @JsonKey(name: "max_player") final double? maxPlayer,
-      @JsonKey(name: "title") final String? title,
-      @JsonKey(name: "booking") final Booking? booking,
-      @JsonKey(name: "description") final String? description,
-      @JsonKey(name: "age_from") final int? ageFrom,
-      @JsonKey(name: "age_to") final int? ageTo}) = _$GameDetailsImpl;
+          {@JsonKey(name: "id") final int? id,
+          @JsonKey(name: "contribution") final String? contribution,
+          @JsonKey(name: "max_player") final double? maxPlayer,
+          @JsonKey(name: "title") final String? title,
+          @JsonKey(name: "booking") final Booking? booking,
+          @JsonKey(name: "description") final String? description,
+          @JsonKey(name: "age_from") final int? ageFrom,
+          @JsonKey(name: "age_to") final int? ageTo,
+          @JsonKey(name: "game_type_name") final String? gameTypeName}) =
+      _$GameDetailsImpl;
 
   factory _GameDetails.fromJson(Map<String, dynamic> json) =
       _$GameDetailsImpl.fromJson;
@@ -314,7 +336,7 @@ abstract class _GameDetails implements GameDetails {
   int? get id;
   @override
   @JsonKey(name: "contribution")
-  double? get contribution;
+  String? get contribution;
   @override
   @JsonKey(name: "max_player")
   double? get maxPlayer;
@@ -334,6 +356,9 @@ abstract class _GameDetails implements GameDetails {
   @JsonKey(name: "age_to")
   int? get ageTo;
   @override
+  @JsonKey(name: "game_type_name")
+  String? get gameTypeName;
+  @override
   @JsonKey(ignore: true)
   _$$GameDetailsImplCopyWith<_$GameDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -350,7 +375,7 @@ mixin _$Booking {
   @JsonKey(name: "address")
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: "booking_type")
-  String? get bookingType => throw _privateConstructorUsedError;
+  int? get bookingType => throw _privateConstructorUsedError;
   @JsonKey(name: "start_date")
   DateTime? get startDate => throw _privateConstructorUsedError;
   @JsonKey(name: "field_type")
@@ -371,7 +396,7 @@ abstract class $BookingCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "address") String? name,
-      @JsonKey(name: "booking_type") String? bookingType,
+      @JsonKey(name: "booking_type") int? bookingType,
       @JsonKey(name: "start_date") DateTime? startDate,
       @JsonKey(name: "field_type") int? fieldType,
       @JsonKey(name: "payment_status") String? paymentStatus});
@@ -409,7 +434,7 @@ class _$BookingCopyWithImpl<$Res, $Val extends Booking>
       bookingType: freezed == bookingType
           ? _value.bookingType
           : bookingType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -436,7 +461,7 @@ abstract class _$$BookingImplCopyWith<$Res> implements $BookingCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "id") int? id,
       @JsonKey(name: "address") String? name,
-      @JsonKey(name: "booking_type") String? bookingType,
+      @JsonKey(name: "booking_type") int? bookingType,
       @JsonKey(name: "start_date") DateTime? startDate,
       @JsonKey(name: "field_type") int? fieldType,
       @JsonKey(name: "payment_status") String? paymentStatus});
@@ -472,7 +497,7 @@ class __$$BookingImplCopyWithImpl<$Res>
       bookingType: freezed == bookingType
           ? _value.bookingType
           : bookingType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -511,7 +536,7 @@ class _$BookingImpl implements _Booking {
   final String? name;
   @override
   @JsonKey(name: "booking_type")
-  final String? bookingType;
+  final int? bookingType;
   @override
   @JsonKey(name: "start_date")
   final DateTime? startDate;
@@ -567,7 +592,7 @@ abstract class _Booking implements Booking {
   const factory _Booking(
           {@JsonKey(name: "id") final int? id,
           @JsonKey(name: "address") final String? name,
-          @JsonKey(name: "booking_type") final String? bookingType,
+          @JsonKey(name: "booking_type") final int? bookingType,
           @JsonKey(name: "start_date") final DateTime? startDate,
           @JsonKey(name: "field_type") final int? fieldType,
           @JsonKey(name: "payment_status") final String? paymentStatus}) =
@@ -583,7 +608,7 @@ abstract class _Booking implements Booking {
   String? get name;
   @override
   @JsonKey(name: "booking_type")
-  String? get bookingType;
+  int? get bookingType;
   @override
   @JsonKey(name: "start_date")
   DateTime? get startDate;

@@ -4,20 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:football_together/design/icons.dart';
 import 'package:football_together/models/game_list/gamelist.dart';
 import 'package:football_together/presentation/pages/home_page/slider_widget.dart';
+import 'package:football_together/providers/gamelist_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../design/colors.dart';
+import '../../../models/details/details.dart';
+import '../../../providers/game_details_provider.dart';
 
-class GameCardWidget extends StatefulWidget {
+class GameCardWidget extends ConsumerStatefulWidget {
   const GameCardWidget({super.key, required this.game});
 
   final Game game;
 
-  @override
-  State<GameCardWidget> createState() => _GameCardWidgetState();
+  _GameCardWidgetState createState() => _GameCardWidgetState();
 }
 
-class _GameCardWidgetState extends State<GameCardWidget> {
+class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
+  late Future<GameDetails> _gameFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _gameFuture = _fetchGameDetails();
+  }
+
+  Future<GameDetails> _fetchGameDetails() async {
+    final int? gameId = widget.game.id;
+    return await ref.read(gameDetailsProvider(gameId!).future);
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -181,8 +197,22 @@ class _GameCardWidgetState extends State<GameCardWidget> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
-                          context.goNamed('gamepage');
+                        onTap: () async {
+                          try {
+                            final game = await _gameFuture;
+                            context.go(
+                              '/game/${game.id}',
+                              extra: game,
+                            );
+                          } catch (error) {
+                            print(
+                                '===============  >>>>>>>>>>> .>>>>>>>>>:-- $error');
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Error fetching game details')),
+                            );
+                          }
                         },
                         child: ClipRRect(
                           borderRadius:

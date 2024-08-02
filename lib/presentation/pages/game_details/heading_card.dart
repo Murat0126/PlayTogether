@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:football_together/models/details/details.dart';
 
 import '../../../../design/colors.dart';
 import '../../../../design/icons.dart';
 
 class HeadingCard extends StatelessWidget {
-  const HeadingCard({super.key});
+  const HeadingCard({super.key, this.title, this.startDate, this.gameState});
+  final GameDetails? gameState;
+  final String? title;
+  final DateTime? startDate;
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
+    DateTime? now = gameState!.booking!.startDate;
 
-    String date = '${now.day}.${now.month}.${now.year}';
-    String time = '${now.hour}:${now.minute}';
-    String dayOfWeek = getDayOfWeek(now.weekday);
-    const int cash = 250;
+    String date = '${now?.day}.${now?.month}.${now?.year}';
+    String time = '${now?.hour}:${now?.minute}';
+    String dayOfWeek = getDayOfWeek(now!.weekday);
     const double gameDuraation = 2.5;
     const int ageStart = 19;
     const int ageEnd = 45;
@@ -54,8 +57,8 @@ class HeadingCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Text(
-                    'Заголовок',
+                   Text(
+                     "${gameState!.title}",
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
                   ),
                   Row(
@@ -80,8 +83,8 @@ class HeadingCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  _timeEndPrice(gameDuraation, cash),
-                  _ageCategory(ageStart, ageEnd, typeOfGame),
+                  _timeEndPrice(gameDuraation, gameState!.contribution),
+                  // _ageCategory(ageStart, ageEnd,),
                   _avatarAndCall(gameOrganizer),
                 ],
               ),

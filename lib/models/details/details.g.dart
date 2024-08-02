@@ -9,7 +9,7 @@ part of 'details.dart';
 _$GameDetailsImpl _$$GameDetailsImplFromJson(Map<String, dynamic> json) =>
     _$GameDetailsImpl(
       id: (json['id'] as num?)?.toInt(),
-      contribution: (json['contribution'] as num?)?.toDouble(),
+      contribution: json['contribution'] as String?,
       maxPlayer: (json['max_player'] as num?)?.toDouble(),
       title: json['title'] as String?,
       booking: json['booking'] == null
@@ -18,6 +18,7 @@ _$GameDetailsImpl _$$GameDetailsImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       ageFrom: (json['age_from'] as num?)?.toInt(),
       ageTo: (json['age_to'] as num?)?.toInt(),
+      gameTypeName: json['game_type_name'] as String?,
     );
 
 Map<String, dynamic> _$$GameDetailsImplToJson(_$GameDetailsImpl instance) =>
@@ -30,13 +31,14 @@ Map<String, dynamic> _$$GameDetailsImplToJson(_$GameDetailsImpl instance) =>
       'description': instance.description,
       'age_from': instance.ageFrom,
       'age_to': instance.ageTo,
+      'game_type_name': instance.gameTypeName,
     };
 
 _$BookingImpl _$$BookingImplFromJson(Map<String, dynamic> json) =>
     _$BookingImpl(
       id: (json['id'] as num?)?.toInt(),
       name: json['address'] as String?,
-      bookingType: json['booking_type'] as String?,
+      bookingType: (json['booking_type'] as num?)?.toInt(),
       startDate: json['start_date'] == null
           ? null
           : DateTime.parse(json['start_date'] as String),
