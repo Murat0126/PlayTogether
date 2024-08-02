@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:football_together/models/game_list/gamelist.dart';
 
 import '../repositories/gamelist_repo.dart';
+import 'location_provider.dart';
 
 final gameListProvider =
     StateNotifierProvider<GameListNotifier, GameListState>((ref) {
@@ -48,14 +49,28 @@ class GameListNotifier extends StateNotifier<GameListState> {
 
     state = state.copyWith(isLoading: true, currentPage: state.currentPage + 1);
     final newGameLists =
-        await _gameListRepository.fetchGameLists(state.currentPage);
-    print(newGameLists);
+        await _gameListRepository.fetchGameLists(state.currentPage,);
     state = state.copyWith(
       games: [...state.games, ...newGameLists],
       hasNextPage: newGameLists.isNotEmpty,
       currentPage: state.currentPage + 1,
       isLoading: false,
     );
-    print('-------------->>>>>>>>>>>>>>>>>>>>>>>>>>>   ${state.games}');
   }
+
+  final textLocationProvider = Provider<String>((ref) {
+    final locationState = ref.watch(locationProvider);
+
+    if (locationState.isLoading) {
+      return 'Загружается...';
+    } else if (locationState.position != null) {
+      return 'Latitude: ${locationState.position!.latitude}, Longitude: ${locationState.position!.longitude}';
+    } else if (locationState.errorMessage != null) {
+      return 'Error: ${locationState.errorMessage}';
+    } else {
+      return 'Значения локации не доступны';
+    }
+  });
+
+
 }

@@ -7,7 +7,9 @@ import 'heading_card.dart';
 
 
 class GamePage extends StatelessWidget {
-  const GamePage({Key? key}) : super(key: key);
+  const GamePage({Key? key, required this.gameId}) : super(key: key);
+
+  final int gameId;
 
   @override
   Widget build(BuildContext context) {
