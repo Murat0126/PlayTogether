@@ -12,6 +12,7 @@ _$GameListImpl _$$GameListImplFromJson(Map<String, dynamic> json) =>
       contribution: json['contribution'] as String?,
       backgroundImage: json['image'] as String?,
       title: json['title'] as String?,
+      maxPlayer: (json['max_player'] as num?)?.toDouble(),
       startDate: json['start_date'] == null
           ? null
           : DateTime.parse(json['start_date'] as String),
@@ -22,6 +23,7 @@ _$GameListImpl _$$GameListImplFromJson(Map<String, dynamic> json) =>
       organizer: json['organizer'] == null
           ? null
           : Organizer.fromJson(json['organizer'] as Map<String, dynamic>),
+      distanceFromUser: (json['distance_from_user'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$GameListImplToJson(_$GameListImpl instance) =>
@@ -30,10 +32,12 @@ Map<String, dynamic> _$$GameListImplToJson(_$GameListImpl instance) =>
       'contribution': instance.contribution,
       'image': instance.backgroundImage,
       'title': instance.title,
+      'max_player': instance.maxPlayer,
       'start_date': instance.startDate?.toIso8601String(),
       'duration': instance.gameDuration,
       'existing_player_count': instance.existingPlayerCount,
       'organizer': instance.organizer,
+      'distance_from_user': instance.distanceFromUser,
     };
 
 _$GameDurationImpl _$$GameDurationImplFromJson(Map<String, dynamic> json) =>

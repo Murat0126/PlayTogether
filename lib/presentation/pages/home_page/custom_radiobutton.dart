@@ -1,29 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:football_together/design/colors.dart';
-
-extension RadioStyleHelper on CustomRadioButton {
-  static BoxDecoration get fillGray =>
-      BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10));
-}
 
 class CustomRadioButton extends StatelessWidget {
   CustomRadioButton(
       {Key? key,
+      required this.onChange,
       this.decoration,
       this.alignment,
       this.isRightCheck,
       this.iconSize,
       this.groupValue,
-      this.onChange,
       this.text,
-      this.width,
       this.padding,
       this.textStyle,
       this.textAlignment,
       this.gradient,
       this.backgroundColor,
-      this.value});
+      this.value})
+      : super(key: key);
 
   final BoxDecoration? decoration;
   final Alignment? alignment;
@@ -33,7 +27,6 @@ class CustomRadioButton extends StatelessWidget {
   final String? groupValue;
   final Function(String)? onChange;
   final String? text;
-  final double? width;
   final EdgeInsetsGeometry? padding;
   final TextStyle? textStyle;
   final TextAlign? textAlignment;
@@ -45,68 +38,74 @@ class CustomRadioButton extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: buildRadioButtonWidget)
-        : buildRadioButtonWidget;
+            child: buildRadioButtonWidget())
+        : buildRadioButtonWidget();
   }
 
-  bool get isGraadient => gradient != null;
+  bool get isGradient => gradient != null;
 
   BoxDecoration get gradientDecoration => BoxDecoration(gradient: gradient);
 
-  Widget get buildRadioButtonWidget => GestureDetector(
+  Widget buildRadioButtonWidget() => GestureDetector(
         onTap: () {
-          onChange!(value!);
+          if (onChange != null) {
+            onChange!(value!);
+          }
+          print("CLICKED");
         },
         child: Container(
           decoration: decoration,
-          width: width,
           padding: padding,
           child: (isRightCheck ?? false)
-              ? rightSideRadioButton
-              : leftSideRadioButton,
+              ? rightSideRadioButton()
+              : leftSideRadioButton(),
         ),
       );
 
-  Widget get leftSideRadioButton => Row(
+  Widget leftSideRadioButton() => Row(
         children: [
           Padding(
-            child: radioButtonWidget,
-            padding: EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 8),
+            child: radioButtonWidget(),
           ),
-          textWidget
+          textWidget()
         ],
       );
 
-  Widget get rightSideRadioButton => Row(
+  Widget rightSideRadioButton() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          textWidget,
+          textWidget(),
           Padding(
-            padding: EdgeInsets.only(left: 8),
-            child: radioButtonWidget,
+            padding: const EdgeInsets.only(left: 8),
+            child: radioButtonWidget(),
           )
         ],
       );
 
-  Widget get textWidget => Text(text ?? "",
+  Widget textWidget() => Text(text ?? "",
       textAlign: textAlignment ?? TextAlign.start, style: textStyle);
 
-  Widget get radioButtonWidget => SizedBox(
-        height: iconSize ?? 18,
-        width: iconSize ?? 18,
+  Widget radioButtonWidget() => SizedBox(
+        height: iconSize ?? 15,
+        width: iconSize ?? 15,
         child: Radio<String>(
-          visualDensity: VisualDensity(
-            vertical: -4,
-            horizontal: -4,
+          visualDensity: const VisualDensity(
+            vertical: 4,
+            horizontal: 4,
           ),
           value: value ?? "",
           groupValue: groupValue,
+          activeColor: Colors.red,
           onChanged: (value) {
-            onChange!(value!);
+            if (onChange != null) {
+              onChange!(value!);
+              print("RADIO<<<<<<<<<<<<<<<<<<<$value");
+            }
           },
         ),
       );
 
   BoxDecoration get radioButtonDecoration =>
-      BoxDecoration(color: Colors.grey);
+      BoxDecoration(color: backgroundColor);
 }

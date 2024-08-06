@@ -12,10 +12,12 @@ class Game with _$Game {
     @JsonKey(name: "contribution") String? contribution,
     @JsonKey(name: "image") String? backgroundImage,
     @JsonKey(name: "title") String? title,
+    @JsonKey(name: "max_player") double? maxPlayer,
     @JsonKey(name: "start_date") DateTime? startDate,
     @JsonKey(name: "duration") GameDuration? gameDuration,
     @JsonKey(name: "existing_player_count") int? existingPlayerCount,
     @JsonKey(name: "organizer") Organizer? organizer,
+    @JsonKey(name: "distance_from_user") double? distanceFromUser,
   }) = _GameList;
 
   factory Game.fromJson(Map<String, dynamic> json) =>

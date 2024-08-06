@@ -13,30 +13,31 @@ class AppSliderShape extends SliderComponentShape {
 
   @override
   void paint(
-      PaintingContext context,
-      Offset center, {
-        required Animation<double> activationAnimation,
-        required Animation<double> enableAnimation,
-        required bool isDiscrete,
-        required TextPainter labelPainter,
-        required RenderBox parentBox,
-        required SliderThemeData sliderTheme,
-        required TextDirection textDirection,
-        required double value,
-        required double textScaleFactor,
-        required Size sizeWithOverflow,
-      }) {
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    required bool isDiscrete,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {
     final Canvas canvas = context.canvas;
 
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..color = Colors.white;
 
-    final TextPainter textPainter = TextPainter(textDirection: TextDirection.rtl);
+    final TextPainter textPainter =
+        TextPainter(textDirection: TextDirection.rtl);
     textPainter.text = TextSpan(
         text: thumbText.toString(),
         style: TextStyle(
-          fontSize: thumbRadius*2,
+          fontSize: thumbRadius * 2,
           fontWeight: FontWeight.w500,
           color: Colors.black,
         ));
@@ -47,8 +48,8 @@ class AppSliderShape extends SliderComponentShape {
     const cornerRadius = 15.0;
 
     canvas.drawRRect(
-      RRect.fromRectXY(
-          Rect.fromCenter(center: center, width: 30, height: 30), cornerRadius, cornerRadius),
+      RRect.fromRectXY(Rect.fromCenter(center: center, width: 30, height: 30),
+          cornerRadius, cornerRadius),
       paint,
     );
 

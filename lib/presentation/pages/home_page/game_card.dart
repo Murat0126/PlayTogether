@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:football_together/design/icons.dart';
 import 'package:football_together/models/game_list/gamelist.dart';
 import 'package:football_together/presentation/pages/home_page/slider_widget.dart';
-import 'package:football_together/providers/gamelist_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,24 +40,31 @@ class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
     String time = '${now.hour}:${now.minute}';
 
     String priseForGame = widget.game.contribution!;
-    String km = 1340.2.toString();
+    double? meters = widget.game.distanceFromUser;
+    double? maxPlayer = widget.game.maxPlayer;
 
-    double _selfEsteemSliderValue = 50.0;
-    double _levelSliderValue = 12;
-    double _maxLevel = 12.0;
+    double? _existingPlayers = widget.game.existingPlayerCount!.toDouble();
+
+    double metersToKilometers(double meters) {
+      double kilometers = meters / 1000;
+      return double.parse(kilometers.toStringAsFixed(2));
+    }
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
-        height: 237,
+        height: 235,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         child: Card(
           child: Container(
+            height: 250,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: AssetImage(widget.game.backgroundImage ??
-                    "assets/images/card_background.png"),
+                image: AssetImage(
+                  widget.game.backgroundImage ??
+                      "assets/images/card_background.png",
+                ),
                 fit: BoxFit.fitWidth,
                 alignment: Alignment.topCenter,
               ),
@@ -79,7 +85,7 @@ class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
                             child: Container(
-                              width: 200,
+                              width: 230,
                               height: 58,
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.1),
@@ -144,7 +150,7 @@ class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
                       child: Row(
                         children: [
                           Text(
-                            "$km.км",
+                            "${metersToKilometers(meters!)}.км",
                             style: const TextStyle(
                                 color: whiteColor,
                                 fontWeight: FontWeight.w500,
@@ -205,9 +211,6 @@ class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
                               extra: game,
                             );
                           } catch (error) {
-                            print(
-                                '===============  >>>>>>>>>>> .>>>>>>>>>:-- $error');
-
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Error fetching game details')),
@@ -251,38 +254,52 @@ class _GameCardWidgetState extends ConsumerState<GameCardWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 15.0, right: 20),
                   child: Container(
-                    height: 10,
+                    height: 40,
                     width: double.infinity,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: SliderTheme(
-                            data: const SliderThemeData(
-                              trackShape: RoundedRectSliderTrackShape(),
+                            data: SliderThemeData(
+                              trackShape: const RoundedRectSliderTrackShape(),
                               activeTrackColor: Colors.white,
                               thumbColor: Colors.white,
-                              thumbShape:
-                                  AppSliderShape(thumbRadius: 9, thumbText: 1),
+                              thumbShape: AppSliderShape(
+                                  thumbRadius: 9,
+                                  thumbText: _existingPlayers.toInt()),
                             ),
                             child: Slider(
-                              value: _levelSliderValue,
+                              value: _existingPlayers,
                               min: 0.0,
-                              max: 12,
-                              label: _levelSliderValue.round().toString(),
+                              max: maxPlayer ?? 1,
+                              label: _existingPlayers.round().toString(),
                               onChanged: (double value) {
                                 setState(() {
-                                  _levelSliderValue = value;
+                                  _existingPlayers = value;
                                 });
                               },
                             ),
                           ),
                         ),
-                        SizedBox(height: 30, child: shirtIcon),
-
-                        // hadIcon,
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/shirt-icon.png',
+                              width: 20,
+                              height: 20,
+                            ),
+                            Text(
+                              "${widget.game.maxPlayer!.toInt()}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:football_together/design/colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:football_together/providers/gamelist_provider.dart';
 import '../../../design/icons.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../providers/location_provider.dart';
+import '../../../providers/gamelist_providers.dart';
 import 'all_and_near_buttons.dart';
 import 'game_card.dart';
 import 'modal_bottomsheet.dart';
@@ -22,9 +21,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(gameListProvider.notifier).loadMoreGameLists();
+      ref.read(gameListProvider.notifier).loadGameList();
     });
   }
 
@@ -37,7 +35,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final locationState = ref.watch(locationProvider);
     final gameListState = ref.watch(gameListProvider);
 
     return Scaffold(
@@ -55,47 +52,55 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ModalBottomSheetWidget();
-                  },
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.maxFinite,
-                decoration: const BoxDecoration(color: disabledColor),
-                child: Row(
-                  children: [
-                    const Text(
-                      "Сортровка",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const ModalBottomSheet();
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      width: double.maxFinite,
+                      height: 40,
+                      decoration: const BoxDecoration(color: disabledColor),
+                      child: Row(
+                        children: [
+                          const Text(
+                            "Сортровка",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          filterIcon
+                        ],
+                      ),
                     ),
-                    IconButton(onPressed: () {}, icon: filterIcon)
-                  ],
-                ),
+                  ),
+                  const AllAndNearSortWidget(),
+                  gameListState.isLoading
+                      ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                      : Wrap(
+                    runSpacing: 8,
+                    spacing: 8,
+                    children: List<Widget>.generate(
+                        gameListState.games.length,
+                        (index) => GameCardWidget(
+                              game: gameListState.games[index],
+                            )),
+                  ),
+                ],
               ),
             ),
-            AllAndNearSortWidget(),
-            Wrap(
-              runSpacing: 8,
-              spacing: 8,
-              children: List<Widget>.generate(
-                  gameListState.games.length,
-                  (index) => GameCardWidget(
-                        game: gameListState.games[index],
-                      )),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

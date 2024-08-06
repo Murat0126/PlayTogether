@@ -11,8 +11,9 @@ class GameRepository {
 
   Future<GameDetails> fetchGameDetails(int gameId) async {
     final patch = buildUrl('/football_fields_api/games/details/').toString();
-    final response = await _dio.get(patch, queryParameters: {'game_id': gameId});
-      
+    final response =
+        await _dio.get(patch, queryParameters: {'game_id': gameId});
+
     if (response.statusCode == 200) {
       return GameDetails.fromJson(response.data);
     } else {

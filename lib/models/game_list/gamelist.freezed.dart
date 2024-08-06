@@ -29,6 +29,8 @@ mixin _$Game {
   String? get backgroundImage => throw _privateConstructorUsedError;
   @JsonKey(name: "title")
   String? get title => throw _privateConstructorUsedError;
+  @JsonKey(name: "max_player")
+  double? get maxPlayer => throw _privateConstructorUsedError;
   @JsonKey(name: "start_date")
   DateTime? get startDate => throw _privateConstructorUsedError;
   @JsonKey(name: "duration")
@@ -37,6 +39,8 @@ mixin _$Game {
   int? get existingPlayerCount => throw _privateConstructorUsedError;
   @JsonKey(name: "organizer")
   Organizer? get organizer => throw _privateConstructorUsedError;
+  @JsonKey(name: "distance_from_user")
+  double? get distanceFromUser => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,10 +57,12 @@ abstract class $GameCopyWith<$Res> {
       @JsonKey(name: "contribution") String? contribution,
       @JsonKey(name: "image") String? backgroundImage,
       @JsonKey(name: "title") String? title,
+      @JsonKey(name: "max_player") double? maxPlayer,
       @JsonKey(name: "start_date") DateTime? startDate,
       @JsonKey(name: "duration") GameDuration? gameDuration,
       @JsonKey(name: "existing_player_count") int? existingPlayerCount,
-      @JsonKey(name: "organizer") Organizer? organizer});
+      @JsonKey(name: "organizer") Organizer? organizer,
+      @JsonKey(name: "distance_from_user") double? distanceFromUser});
 
   $GameDurationCopyWith<$Res>? get gameDuration;
   $OrganizerCopyWith<$Res>? get organizer;
@@ -79,10 +85,12 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
     Object? contribution = freezed,
     Object? backgroundImage = freezed,
     Object? title = freezed,
+    Object? maxPlayer = freezed,
     Object? startDate = freezed,
     Object? gameDuration = freezed,
     Object? existingPlayerCount = freezed,
     Object? organizer = freezed,
+    Object? distanceFromUser = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -101,6 +109,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      maxPlayer: freezed == maxPlayer
+          ? _value.maxPlayer
+          : maxPlayer // ignore: cast_nullable_to_non_nullable
+              as double?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -117,6 +129,10 @@ class _$GameCopyWithImpl<$Res, $Val extends Game>
           ? _value.organizer
           : organizer // ignore: cast_nullable_to_non_nullable
               as Organizer?,
+      distanceFromUser: freezed == distanceFromUser
+          ? _value.distanceFromUser
+          : distanceFromUser // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 
@@ -157,10 +173,12 @@ abstract class _$$GameListImplCopyWith<$Res> implements $GameCopyWith<$Res> {
       @JsonKey(name: "contribution") String? contribution,
       @JsonKey(name: "image") String? backgroundImage,
       @JsonKey(name: "title") String? title,
+      @JsonKey(name: "max_player") double? maxPlayer,
       @JsonKey(name: "start_date") DateTime? startDate,
       @JsonKey(name: "duration") GameDuration? gameDuration,
       @JsonKey(name: "existing_player_count") int? existingPlayerCount,
-      @JsonKey(name: "organizer") Organizer? organizer});
+      @JsonKey(name: "organizer") Organizer? organizer,
+      @JsonKey(name: "distance_from_user") double? distanceFromUser});
 
   @override
   $GameDurationCopyWith<$Res>? get gameDuration;
@@ -183,10 +201,12 @@ class __$$GameListImplCopyWithImpl<$Res>
     Object? contribution = freezed,
     Object? backgroundImage = freezed,
     Object? title = freezed,
+    Object? maxPlayer = freezed,
     Object? startDate = freezed,
     Object? gameDuration = freezed,
     Object? existingPlayerCount = freezed,
     Object? organizer = freezed,
+    Object? distanceFromUser = freezed,
   }) {
     return _then(_$GameListImpl(
       id: freezed == id
@@ -205,6 +225,10 @@ class __$$GameListImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      maxPlayer: freezed == maxPlayer
+          ? _value.maxPlayer
+          : maxPlayer // ignore: cast_nullable_to_non_nullable
+              as double?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -221,6 +245,10 @@ class __$$GameListImplCopyWithImpl<$Res>
           ? _value.organizer
           : organizer // ignore: cast_nullable_to_non_nullable
               as Organizer?,
+      distanceFromUser: freezed == distanceFromUser
+          ? _value.distanceFromUser
+          : distanceFromUser // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -233,10 +261,12 @@ class _$GameListImpl implements _GameList {
       @JsonKey(name: "contribution") this.contribution,
       @JsonKey(name: "image") this.backgroundImage,
       @JsonKey(name: "title") this.title,
+      @JsonKey(name: "max_player") this.maxPlayer,
       @JsonKey(name: "start_date") this.startDate,
       @JsonKey(name: "duration") this.gameDuration,
       @JsonKey(name: "existing_player_count") this.existingPlayerCount,
-      @JsonKey(name: "organizer") this.organizer});
+      @JsonKey(name: "organizer") this.organizer,
+      @JsonKey(name: "distance_from_user") this.distanceFromUser});
 
   factory _$GameListImpl.fromJson(Map<String, dynamic> json) =>
       _$$GameListImplFromJson(json);
@@ -255,6 +285,9 @@ class _$GameListImpl implements _GameList {
   @JsonKey(name: "title")
   final String? title;
   @override
+  @JsonKey(name: "max_player")
+  final double? maxPlayer;
+  @override
   @JsonKey(name: "start_date")
   final DateTime? startDate;
   @override
@@ -266,10 +299,13 @@ class _$GameListImpl implements _GameList {
   @override
   @JsonKey(name: "organizer")
   final Organizer? organizer;
+  @override
+  @JsonKey(name: "distance_from_user")
+  final double? distanceFromUser;
 
   @override
   String toString() {
-    return 'Game(id: $id, contribution: $contribution, backgroundImage: $backgroundImage, title: $title, startDate: $startDate, gameDuration: $gameDuration, existingPlayerCount: $existingPlayerCount, organizer: $organizer)';
+    return 'Game(id: $id, contribution: $contribution, backgroundImage: $backgroundImage, title: $title, maxPlayer: $maxPlayer, startDate: $startDate, gameDuration: $gameDuration, existingPlayerCount: $existingPlayerCount, organizer: $organizer, distanceFromUser: $distanceFromUser)';
   }
 
   @override
@@ -283,6 +319,8 @@ class _$GameListImpl implements _GameList {
             (identical(other.backgroundImage, backgroundImage) ||
                 other.backgroundImage == backgroundImage) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.maxPlayer, maxPlayer) ||
+                other.maxPlayer == maxPlayer) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.gameDuration, gameDuration) ||
@@ -290,7 +328,9 @@ class _$GameListImpl implements _GameList {
             (identical(other.existingPlayerCount, existingPlayerCount) ||
                 other.existingPlayerCount == existingPlayerCount) &&
             (identical(other.organizer, organizer) ||
-                other.organizer == organizer));
+                other.organizer == organizer) &&
+            (identical(other.distanceFromUser, distanceFromUser) ||
+                other.distanceFromUser == distanceFromUser));
   }
 
   @JsonKey(ignore: true)
@@ -301,10 +341,12 @@ class _$GameListImpl implements _GameList {
       contribution,
       backgroundImage,
       title,
+      maxPlayer,
       startDate,
       gameDuration,
       existingPlayerCount,
-      organizer);
+      organizer,
+      distanceFromUser);
 
   @JsonKey(ignore: true)
   @override
@@ -326,10 +368,13 @@ abstract class _GameList implements Game {
       @JsonKey(name: "contribution") final String? contribution,
       @JsonKey(name: "image") final String? backgroundImage,
       @JsonKey(name: "title") final String? title,
+      @JsonKey(name: "max_player") final double? maxPlayer,
       @JsonKey(name: "start_date") final DateTime? startDate,
       @JsonKey(name: "duration") final GameDuration? gameDuration,
       @JsonKey(name: "existing_player_count") final int? existingPlayerCount,
-      @JsonKey(name: "organizer") final Organizer? organizer}) = _$GameListImpl;
+      @JsonKey(name: "organizer") final Organizer? organizer,
+      @JsonKey(name: "distance_from_user")
+      final double? distanceFromUser}) = _$GameListImpl;
 
   factory _GameList.fromJson(Map<String, dynamic> json) =
       _$GameListImpl.fromJson;
@@ -347,6 +392,9 @@ abstract class _GameList implements Game {
   @JsonKey(name: "title")
   String? get title;
   @override
+  @JsonKey(name: "max_player")
+  double? get maxPlayer;
+  @override
   @JsonKey(name: "start_date")
   DateTime? get startDate;
   @override
@@ -358,6 +406,9 @@ abstract class _GameList implements Game {
   @override
   @JsonKey(name: "organizer")
   Organizer? get organizer;
+  @override
+  @JsonKey(name: "distance_from_user")
+  double? get distanceFromUser;
   @override
   @JsonKey(ignore: true)
   _$$GameListImplCopyWith<_$GameListImpl> get copyWith =>
